@@ -19,7 +19,7 @@ except Exception:
     print("ERROR: tkinter not available.")
     sys.exit(1)
 
-print("ScreenGrab loaded. Press PRINT SCREEN, drag to select, save to Desktop.")
+print("ScreenGrab loaded. Press ` (backtick/grave) key, drag to select, save to Desktop.")
 
 
 class GrabOverlay:
@@ -75,8 +75,8 @@ def capture_region(bbox):
 
 def main():
     import keyboard
-    print("Waiting for PRINT SCREEN key...")
-    keyboard.wait("print screen")
+    print("Waiting for ` (grave/backtick) key...")
+    keyboard.wait("grave")
     print("Select area: click and drag, release to capture.")
 
     root = tk.Tk()
