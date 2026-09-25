@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""ScreenGrab v1.0 — Windows / WSL screenshot by drag-select."""
+"""ScreenGrab v2.1 — Windows screenshot by drag-select, saved to Desktop as JPG.
+
+Press the ` (backtick/grave) key, drag to select an area, release to save.
+Runs continuously until Ctrl+C is pressed.
+"""
 import os, datetime, sys, time
 
 # Paths
@@ -69,44 +73,7 @@ class GrabOverlay:
 
 
 def capture_region(bbox):
-    img = ImageGrab.grab(bbox=bbox)
-    return img
-
-
-def main():
-    import keyboard
-    print("Waiting for ` (grave/backtick) key...")
-    keyboard.wait("grave")
-    print("Select area: click and drag, release to capture.")
-
-    root = tk.Tk()
-    overlay = GrabOverlay(root)
-    root.mainloop()
-
-    if overlay.result:
-        x1, y1, x2, y2 = overlay.result
-        img = capture_region((x1, y1, x2, y2))
-        filename = datetime.datetime.now().strftime("Screenshot_%Y-%m-%d_%H-%M-%S.png")
-        filepath = os.path.join(DESKTOP, filename)
-        img.save(filepath, "PNG")
-        print(f"Saved screenshot to: {filepath}")
-
-        # Try Windows beep (only works on Windows Python)
-        try:
-            import winsound
-            winsound.Beep(1000, 150)
-        except Exception:
-            pass
-
-        # Copy path to clipboard (works cross-platform via pyperclip / clipboard)
-        try:
-            import pyperclip
-            pyperclip.copy(filepath)
-        except Exception:
-            pass
-        print("Copied file path to clipboard.")
-    else:
-        print("Cancelled.")
+    return ImageGrab.grab(bbox=bbox)
 
 
 if __name__ == "__main__":

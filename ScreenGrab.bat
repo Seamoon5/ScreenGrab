@@ -1,5 +1,5 @@
 @echo off
-REM ScreenGrab v1.2 — simple launcher, shows every step
+REM ScreenGrab v2.1 — simple launcher, shows every step
 setlocal
 
 echo.
