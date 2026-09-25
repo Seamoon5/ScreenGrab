@@ -110,7 +110,34 @@ def main():
 
 
 if __name__ == "__main__":
+    import keyboard
+    print("ScreenGrab running. Press ` (backtick) anytime to capture. Press Ctrl+C to exit.")
     try:
-        main()
+        while True:
+            keyboard.wait("grave")
+            print("Select area: click and drag, release to capture.")
+            root = tk.Tk()
+            overlay = GrabOverlay(root)
+            root.mainloop()
+            if overlay.result:
+                x1, y1, x2, y2 = overlay.result
+                img = capture_region((x1, y1, x2, y2))
+                filename = datetime.datetime.now().strftime("Screenshot_%Y-%m-%d_%H-%M-%S.png")
+                filepath = os.path.join(DESKTOP, filename)
+                img.save(filepath, "PNG")
+                print(f"Saved: {filepath}")
+                try:
+                    import winsound
+                    winsound.Beep(1000, 150)
+                except Exception:
+                    pass
+                try:
+                    import pyperclip
+                    pyperclip.copy(filepath)
+                except Exception:
+                    pass
+                print("Copied path to clipboard. Waiting for next ` press...")
+            else:
+                print("Cancelled. Waiting for next ` press...")
     except KeyboardInterrupt:
         print("\nStopped.")
