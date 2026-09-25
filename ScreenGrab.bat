@@ -12,12 +12,16 @@ if not exist "%LOCAL_DIR%" (
     mkdir "%LOCAL_DIR%"
 )
 
-echo Copying files to %LOCAL_DIR% ...
-copy /Y "%~dp0screengrab.py" "%LOCAL_DIR%\" 
-if errorlevel 1 echo ERROR: Could not copy screengrab.py
-
-copy /Y "%~dp0ScreenGrab.bat" "%LOCAL_DIR%\" 
-if errorlevel 1 echo ERROR: Could not copy ScreenGrab.bat
+REM Only copy if we're not already running from LOCAL_DIR
+if /I not "%~dp0"=="%LOCAL_DIR%\" (
+    echo Copying files to %LOCAL_DIR% ...
+    copy /Y "%~dp0screengrab.py" "%LOCAL_DIR%\" 2>nul
+    if errorlevel 1 echo ERROR: Could not copy screengrab.py
+    copy /Y "%~dp0ScreenGrab.bat" "%LOCAL_DIR%\" 2>nul
+    if errorlevel 1 echo ERROR: Could not copy ScreenGrab.bat
+) else (
+    echo Already in %LOCAL_DIR% — skip copy.
+)
 
 echo.
 echo Running from: %LOCAL_DIR%
