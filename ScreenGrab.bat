@@ -48,5 +48,8 @@ echo Please install: python -m pip install pillow keyboard pyperclip
 pause
 
 :end
+echo.
+echo Done. Press any key to close this window.
+pause >nul
 popd
 endlocal
