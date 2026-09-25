@@ -122,9 +122,9 @@ if __name__ == "__main__":
             if overlay.result:
                 x1, y1, x2, y2 = overlay.result
                 img = capture_region((x1, y1, x2, y2))
-                filename = datetime.datetime.now().strftime("Screenshot_%Y-%m-%d_%H-%M-%S.png")
+                filename = datetime.datetime.now().strftime("Screenshot_%Y-%m-%d_%H-%M-%S.jpg")
                 filepath = os.path.join(DESKTOP, filename)
-                img.save(filepath, "PNG")
+                img.save(filepath, "JPEG", quality=95)
                 print(f"Saved: {filepath}")
                 try:
                     import winsound
